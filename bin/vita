@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/vita"
+require "vita/main"
+
+begin
+  garden = Vita::Garden.read(Dir.pwd)
+  main = Vita::Main.new(garden, $stdout)
+  status = main.call(*ARGV)
+  main.join
+  exit status
+rescue => e
+  puts e.message
+  exit 1
+end

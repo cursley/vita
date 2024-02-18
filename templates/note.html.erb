@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+    <head>
+        <title>
+            <%= h note.title %> &ndash; <%= h garden.title %>
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <style>
+         .line-clamp-2 {
+             overflow: hidden;
+             display: -webkit-box;
+             -webkit-box-orient: vertical;
+             -webkit-line-clamp: 2;
+         }
+        </style>
+        <script defer src="https://unpkg.com/htmx.org@1.9.10"></script>
+    </head>
+    <body>
+        <nav class="navbar bg-body-tertiary mb-3">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <%= h garden.title %>
+                </a>
+            </div>
+        </nav>
+
+        <div class="container mb-5">
+            <div class="row row-gap-3">
+                <div class="col">
+                    <article class="mb-4">
+                        <h1 class="mb-3"><%= h note.title %></h1>
+
+                        <%= content_html %>
+                    </article>
+
+                    <% if note.backlinks.any? %>
+                        <aside class="card">
+                            <div class="card-header">
+                                <% if note.backlinks.one? %>
+                                    1 link
+                                <% else %>
+                                    <%= note.backlinks.size %> links
+                                <% end %>
+                                to this note
+                            </div>
+                            <div role="list" class="list-group list-group-flush">
+                                <% note.backlinks.each do |link| %>
+                                    <a role="listitem" class="list-group-item list-group-item-action" href="<%= h link.from_note.path %>">
+                                        <h3 class="h6 mb-1 text-truncate"><%= link.from_note.title %></h3>
+                                        <div class="text-body-secondary line-clamp-2">
+                                            <% link.highlights.each do |text| %><% if text.match? %><mark><%= h text %></mark><% else %><%= h text %><% end %><% end %>
+                                        </div>
+                                    </a>
+                                <% end %>
+                            </div>
+                        </aside>
+                    <% end %>
+                </div>
+
+                <div class="col-md-3">
+                    <nav>
+                        <div role="list" class="list-group">
+                            <% garden.notes.each do |garden_note| %>
+                                <a role="listitem" class="list-group-item list-group-item-action<% if garden_note == note %> active<% end %> text-truncate" href="<%= h garden_note.path %>">
+                                    <%= garden_note.title %>
+                                </a>
+                            <% end %>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <script defer>
+         if (location.protocol !== "file:") {
+             document.body.setAttribute('hx-boost', true);
+         }
+        </script>
+    </body>
+</html>
