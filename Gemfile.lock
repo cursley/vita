@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    vita (0.1.0)
+    vita (0.1.1)
       launchy (~> 2.5)
       org-ruby (~> 0.9.12)
       puma (~> 6.4)
