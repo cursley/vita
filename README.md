@@ -43,17 +43,21 @@ Vita creates a `publish` folder containing HTML files for publishing to a web se
 
 ## Links between notes
 
-Vita looks for connections between notes.
+Vita looks for connections between notes. When a note's title appears in the content of another note, Vita creates a link between the two.
 
-When a note's content includes the title of another note, Vita creates a link between the two notes.
+When viewing a note, links in the note's content are hyperlinked:
 
-Links are clickable. Wherever a note's title appears in another note's content, clicking on it navigates to that note:
+<div style="text-align: center">
+  <img src="doc/outlinks.png" alt="Screenshot of a note in Vita, showing hyperlinks from a note's content to other notes" style="width: 50%">
+</div>
 
-<img src="doc/outlinks.png" alt="Screenshot of a note in Vita, showing hyperlinks from a note's content to other notes">
+A list of links from other notes to the current note follows the note's content:
 
-Each note lists the other notes that link to it, along with an excerpt from the source note. Clicking on any of these navigates to the source note:
+<div style="text-align: center">
+  <img src="doc/backlinks.png" alt="Screenshot of the &quot;links to this note&quot; panel in Vita, showing notes that reference the current note" style="width: 50%">
+</div>
 
-<img src="doc/backlinks.png" alt="Screenshot of the &quot;links to this note&quot; panel in Vita, showing notes that reference the currently-displayed note">
+Each link includes an excerpt from the other note. Clicking one of these links navigates to the other note.
 
 ## Home note
 
