@@ -45,6 +45,7 @@ module Vita
 
       describe "open" do
         it "opens a web browser" do
+          expect(Server).to receive(:await_startup).and_return(nil)
           expect(Launchy).to receive(:open).with("http://localhost:9000")
 
           main.call("open")

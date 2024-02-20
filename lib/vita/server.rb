@@ -2,6 +2,10 @@ require "sinatra"
 
 module Vita
   class Server < Sinatra::Base
+    def self.await_startup
+      sleep 0.1 until settings.running?
+    end
+
     configure do
       enable :quiet
       set :port, 9000

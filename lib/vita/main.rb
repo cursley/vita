@@ -68,6 +68,7 @@ module Vita
     end
 
     def open_browser
+      Server.await_startup
       Launchy.open(server_url)
     end
 
