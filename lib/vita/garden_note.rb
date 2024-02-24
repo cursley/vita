@@ -12,12 +12,30 @@ module Vita
       @note = note
     end
 
+    # Get this note's primary title.
     def title
       @note.title
     end
 
-    def title_regexp
-      /\b#{Regexp.quote(title)}\b/i
+    # Get alternative names for this note.
+    def synonyms
+      if @note.content.start_with? "Synonyms:"
+        @note.content[9..@note.content.index("\n")].split(",").map(&:strip)
+      else
+        []
+      end
+    end
+
+    # Get all names for this note, including its title and synonyms.
+    def all_names
+      [title, *synonyms]
+    end
+
+    # Get a regular expression that matches any of this note's names surrounded
+    # by word boundaries.
+    def names_regexp
+      elements = all_names.map { |name| /#{Regexp.quote(name)}/i }
+      /\b#{Regexp.union(elements)}\b/
     end
 
     def path
@@ -29,7 +47,11 @@ module Vita
     end
 
     def content
-      @note.content
+      if @note.content.start_with? "Synonyms:"
+        @note.content[@note.content.index("\n") + 1..]
+      else
+        @note.content
+      end
     end
 
     def html
@@ -62,7 +84,7 @@ module Vita
 
     def create_outlinks
       notes = garden.linkable_notes - [self]
-      regexp = Regexp.union(notes.map(&:title_regexp))
+      regexp = Regexp.union(notes.map(&:names_regexp))
       matches = NoteScanner.new(content).scan(regexp)
 
       matches.map do |match|

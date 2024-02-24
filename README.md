@@ -43,21 +43,31 @@ Vita creates a `publish` folder containing HTML files for publishing to a web se
 
 ## Links between notes
 
-Vita looks for connections between notes. When a note's title appears in the content of another note, Vita creates a link between the two.
+Vita looks for connections between notes. When a note's title (or a [synonym](#synonyms)) appears in the content of another note, Vita creates a link between the two.
 
 When viewing a note, links in the note's content are hyperlinked:
 
-<div style="text-align: center">
-  <img src="doc/outlinks.png" alt="Screenshot of a note in Vita, showing hyperlinks from a note's content to other notes" style="width: 50%">
-</div>
+<img src="doc/outlinks.png" alt="Screenshot of a note in Vita, showing hyperlinks from a note's content to other notes" style="width: 75%">
 
 A list of links from other notes to the current note follows the note's content:
 
-<div style="text-align: center">
-  <img src="doc/backlinks.png" alt="Screenshot of the &quot;links to this note&quot; panel in Vita, showing notes that reference the current note" style="width: 50%">
-</div>
+<img src="doc/backlinks.png" alt="Screenshot of the &quot;links to this note&quot; panel in Vita, showing notes that reference the current note" style="width: 75%">
 
 Each link includes an excerpt from the other note. Clicking one of these links navigates to the other note.
+
+## Synonyms
+
+Synonyms allow referring to notes using multiple names. Adding synonyms can be helpful when a note's title appears in other notes in different forms or tenses.
+
+For example, notes may refer to a note titled "Cohesion" using terms like "cohesive", "coherent", or "coherence". Adding these words as synonyms to the "Cohesion" note allows Vita to connect the notes with links.
+
+To specify a note's synonyms, add a `Synonyms:` line at the start of the file containing a comma-separated list of alternative names. For example, in a file called `Cohesion.txt`:
+
+```
+Synonyms: cohesive, coherent, coherence
+
+A module is cohesive if the elements in the module are related and the module is coherent as a whole.
+```
 
 ## Home note
 

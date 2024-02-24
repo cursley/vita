@@ -3,19 +3,19 @@ require "vita/garden_note"
 
 module Vita
   describe GardenNote do
-    note_content = <<~TEXT
-      This is the first note. Notes can refer to other notes. For example, this note
-      refers to the second note.
-
-      When a note's content includes the title of another note, a bidirectional link
-      is created between the two notes. A note's links to other notes are called its
-      outlinks, and a note's links from other notes are called backlinks.
-
-      This note contains several outlinks to the second note. Outlinks are not
-      case-sensitive: Second Note creates an outlink too.
-    TEXT
-
     let(:note) {
+      note_content = <<~TEXT
+        This is the first note. Notes can refer to other notes. For example, this note
+        refers to the second note.
+
+        When a note's content includes the title of another note, a bidirectional link
+        is created between the two notes. A note's links to other notes are called its
+        outlinks, and a note's links from other notes are called backlinks.
+
+        This note contains several outlinks to the second note. Outlinks are not
+        case-sensitive: Second Note creates an outlink too.
+      TEXT
+
       instance_double("Note",
         title: "First note",
         filename: "First note.txt",
@@ -31,9 +31,9 @@ module Vita
     end
 
     it "has a regular expression that matches the title" do
-      expect(subject.title_regexp).to match("Content that mentions first note")
-      expect(subject.title_regexp).to_not match("First noteful")
-      expect(subject.title_regexp).to_not match("No match here")
+      expect(subject.names_regexp).to match("Content that mentions first note")
+      expect(subject.names_regexp).to_not match("First noteful")
+      expect(subject.names_regexp).to_not match("No match here")
     end
 
     it "has content from the note" do
@@ -49,6 +49,35 @@ module Vita
 
     it "has a path based on the note title" do
       expect(subject.path).to eq "first-note.html"
+    end
+
+    context "with synonyms" do
+      let(:note) {
+        note_content = <<~TEXT
+          Synonyms: one, two , fourty seven
+          This is the content.
+        TEXT
+        instance_double("Note",
+          title: "Note",
+          filename: "Note.txt",
+          content: note_content,
+          html: "HTML")
+      }
+
+      it "has synonyms" do
+        expect(subject.synonyms).to eq ["one", "two", "fourty seven"]
+      end
+
+      it "has a regexp that matches the note title and synonyms" do
+        expect(subject.names_regexp).to match("note")
+        expect(subject.names_regexp).to match("one")
+        expect(subject.names_regexp).to match("two")
+        expect(subject.names_regexp).to match("fourty seven")
+      end
+
+      it "does not include the synonym list in the content" do
+        expect(subject.content).to eq "This is the content.\n"
+      end
     end
 
     context "with content longer than the excerpt length" do
@@ -105,7 +134,7 @@ module Vita
 
     context "in a garden with two notes" do
       let(:second_note) {
-        instance_double("Note", title: "Second note")
+        instance_double("Note", title: "Second note", content: "")
       }
       let(:garden_second_note) { GardenNote.new(garden, second_note) }
 

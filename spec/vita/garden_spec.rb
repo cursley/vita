@@ -41,7 +41,7 @@ module Vita
     end
 
     context "with one note" do
-      let(:note) { instance_double("Note", title: "Title") }
+      let(:note) { instance_double("Note", title: "Title", content: "Synonyms: other") }
       subject(:garden) { Garden.new("Garden", [note]) }
 
       it "is not empty" do
@@ -55,6 +55,11 @@ module Vita
       it "gets a note by title case-insensitively" do
         expect(garden["Title"].title).to eq "Title"
         expect(garden["title"].title).to eq "Title"
+      end
+
+      it "gets a note by synonyms case-insensitively" do
+        expect(garden["Other"].title).to eq "Title"
+        expect(garden["other"].title).to eq "Title"
       end
 
       it "returns nil if the note does not exist" do
@@ -82,9 +87,9 @@ module Vita
 
     it "sorts notes alphabetically by title" do
       garden = Garden.new("Garden", [
-        instance_double("Note", title: "Bravo"),
-        instance_double("Note", title: "Charlie"),
-        instance_double("Note", title: "Alpha")
+        instance_double("Note", title: "Bravo", content: ""),
+        instance_double("Note", title: "Charlie", content: ""),
+        instance_double("Note", title: "Alpha", content: "")
       ])
 
       expect(garden.notes.map(&:title)).to eq ["Alpha", "Bravo", "Charlie"]

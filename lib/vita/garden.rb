@@ -60,7 +60,9 @@ module Vita
 
     def notes=(notes)
       @notes = notes.map { |note| GardenNote.new(self, note) }.sort_by(&:title)
-      @notes_hash = @notes.map { |note| [note.title.downcase, note] }.to_h
+      @notes_hash = @notes.flat_map { |note|
+        note.all_names.map { |name| [name.downcase, note] }
+      }.to_h
 
       if home_note
         @notes.delete(home_note)
