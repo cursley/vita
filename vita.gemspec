@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-collection_matchers", "~> 1.2"
   spec.add_development_dependency "simplecov", "~> 0.22.0"
   spec.add_development_dependency "rack-test", "~> 2.1"
-  spec.add_development_dependency "standard", "~> 1.34.0"
+  spec.add_development_dependency "standard", "~> 1.35.1"
 end
