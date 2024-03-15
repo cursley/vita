@@ -15,7 +15,11 @@ module Vita
         raise Vita::Error.new("Directory not found at #{root}")
       end
 
-      Dir[File.join(root, "*.*")].map { |filename| Note.new(filename) }
+      Dir[note_filename_pattern(root)].map { |filename| Note.new(filename) }
+    end
+
+    def self.note_filename_pattern(root)
+      File.join(root, "*.*")
     end
 
     def initialize(root, notes)
@@ -54,6 +58,10 @@ module Vita
 
     def links_to(note)
       links.filter { |link| link.to_note == note }
+    end
+
+    def note_filename_pattern
+      self.class.note_filename_pattern(root)
     end
 
     private

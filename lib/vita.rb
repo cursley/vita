@@ -9,6 +9,7 @@ require "vita/note"
 require "vita/renderer"
 require "vita/rendering_context"
 require "vita/version"
+require "vita/watcher"
 
 module Vita
   BASE_DIRECTORY = File.expand_path("..", __dir__)

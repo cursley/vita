@@ -33,6 +33,8 @@ __   _(_) |_ __ _
 Starting Vita at http://localhost:9000
 ```
 
+Your web browser refreshes as you make changes to your files.
+
 To publish:
 
 ```

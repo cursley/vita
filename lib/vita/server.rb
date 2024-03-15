@@ -1,7 +1,10 @@
 require "sinatra"
+require "sinatra/streaming"
 
 module Vita
   class Server < Sinatra::Base
+    helpers Sinatra::Streaming
+
     def self.await_startup
       sleep 0.1 until settings.running?
     end
@@ -22,6 +25,14 @@ module Vita
         redirect to note.path
       else
         status 404
+      end
+    end
+
+    get "/events", provides: "text/event-stream" do
+      stream do |out|
+        Watcher.new(garden).watch do
+          out << "event: change\ndata: {}\n\n"
+        end
       end
     end
 

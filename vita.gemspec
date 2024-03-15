@@ -28,8 +28,10 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "org-ruby", "~> 0.9.12"
   spec.add_runtime_dependency "launchy", "~> 2.5"
   spec.add_runtime_dependency "sinatra", "~> 4.0"
+  spec.add_runtime_dependency "sinatra-contrib", "~> 4.0"
   spec.add_runtime_dependency "rackup", "~> 2.1"
   spec.add_runtime_dependency "puma", "~> 6.4"
+  spec.add_runtime_dependency "filewatcher", "~> 2.1"
 
   spec.add_development_dependency "rake", "~> 13.1"
   spec.add_development_dependency "rspec", "~> 3.13"

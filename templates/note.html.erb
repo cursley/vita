@@ -16,6 +16,7 @@
         <script defer src="https://unpkg.com/htmx.org@1.9.10"></script>
     </head>
     <body>
+        <div hx-trigger="sse:change" hx-get="/<%= h note.path %>" hx-target="body">
         <nav class="navbar bg-body-tertiary mb-3">
             <div class="container">
                 <a class="navbar-brand" href="/">
@@ -70,9 +71,13 @@
                 </div>
             </div>
         </div>
+        </div>
         <script defer>
          if (location.protocol !== "file:") {
              document.body.setAttribute('hx-boost', true);
+         }
+         if (location.port === "9000") {
+             document.body.setAttribute('hx-sse', 'connect:/events');
          }
         </script>
     </body>
