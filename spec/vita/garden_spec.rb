@@ -26,6 +26,13 @@ module Vita
         expect(garden).to have(1).notes
         expect(garden.home_note.content).to include "Welcome to my digital garden."
       end
+
+      it "initialises with a directory containing a template" do
+        garden = Garden.read("spec/test_data/Template")
+
+        expect(garden["note.html"]).to be_nil
+        expect(garden).to have(1).notes
+      end
     end
 
     context "with no notes" do

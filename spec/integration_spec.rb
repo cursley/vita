@@ -78,4 +78,23 @@ describe "Vita" do
       end
     end
   end
+
+  context "with garden with custom note template" do
+    let(:garden_path) { "spec/test_data/Template" }
+
+    describe "publish" do
+      before { remove_publish_directory }
+      after { remove_publish_directory }
+
+      it "creates HTML files using the custom template" do
+        stdout, status = run_vita("publish")
+
+        expect(stdout).to include "Home (index.html)"
+        expect(status).to be_success
+
+        index_html = File.read(File.join(garden_path, "publish", "index.html"))
+        expect(index_html).to eq "Welcome to my digital garden.\n\n"
+      end
+    end
+  end
 end

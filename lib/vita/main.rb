@@ -45,7 +45,7 @@ module Vita
     private
 
     def publish
-      renderer = Renderer.new
+      renderer = Renderer.new(garden)
 
       FileUtils.remove_dir(publish_directory, force: true)
       Dir.mkdir(publish_directory)

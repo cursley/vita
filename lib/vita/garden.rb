@@ -15,7 +15,9 @@ module Vita
         raise Vita::Error.new("Directory not found at #{root}")
       end
 
-      Dir[note_filename_pattern(root)].map { |filename| Note.new(filename) }
+      Dir[note_filename_pattern(root)]
+        .reject { |filename| filename.end_with? ".erb" }
+        .map { |filename| Note.new(filename) }
     end
 
     def self.note_filename_pattern(root)

@@ -53,7 +53,7 @@ module Vita
     end
 
     def renderer
-      @renderer ||= Vita::Renderer.new
+      Renderer.new(garden)
     end
   end
 end

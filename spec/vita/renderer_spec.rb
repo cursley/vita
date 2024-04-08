@@ -3,7 +3,8 @@ require "vita"
 
 module Vita
   describe Renderer do
-    subject(:renderer) { Renderer.new }
+    let(:garden) { instance_double("Garden", root: ".") }
+    subject(:renderer) { Renderer.new(garden) }
 
     it "invokes an ERB template with the binding from a RenderingContext" do
       context_binding = double
