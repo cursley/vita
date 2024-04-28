@@ -79,6 +79,10 @@ If a note titled Home exists, it is treated as a home page and shown when you op
 
 Vita uses plain text files. You can create them using any text editor and save them with any file extension. You can optionally use Markdown or [Org-mode](https://orgmode.org/) syntax (`.org` files only) to add formatting to your notes.
 
+## Appearance
+
+You can customise Vita's appearance by creating a file named `note.html.erb` in your notes folder. This file overrides the [default template](https://github.com/cursley/vita/blob/main/templates/note.html.erb). A good starting point is to copy the default template and make changes.
+
 ## Name
 
 Vita is named for Vita Sackville-West, a twentieth-century author and garden designer and creator of [Sissinghurst Castle Garden](https://www.nationaltrust.org.uk/visit/kent/sissinghurst-castle-garden), a favourite place of mine.
